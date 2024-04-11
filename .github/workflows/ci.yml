@@ -1,4 +1,5 @@
 name: CI
+
 on:
   push:
     branches:
@@ -6,23 +7,23 @@ on:
   pull_request:
     branches:
       - master
+
 jobs:
   build:
     name: 'Build - Test - [Publish]'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '16.13'
-          registry-url: 'https://registry.npmjs.org'
-          cache: 'yarn'
-      - run: yarn --frozen-lockfile
-      - run: yarn build
-      - run: yarn test
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+      - run: pnpm setup
+      - run: pnpm build
+      - run: pnpm test
       - run: cp README.md packages/vanilla-hcaptcha
       - name: 'Publish'
         if: contains('refs/heads/master', github.ref)
-        run: lerna publish -y from-package
+        run: pnpm --filter=@hcaptcha/vanilla-hcaptcha publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}

@@ -2,7 +2,7 @@
 A Vanilla Web Component wrapper for [hCaptcha](https://docs.hcaptcha.com/).
 It allows for easy integration with hCaptcha in many modern web frameworks.
 
-<img width="300px" src="https://assets-global.website-files.com/5c73e7ea3f8bb2a85d2781db/5c73e7ea3f8bb23b4c278261_hcaptcha-logo-landscape.svg" alt="hCaptcha logo" title="hCaptcha logo" />  
+<img width="300px" src="https://www.hcaptcha.com/hosted-assets/3u1Osx9BvMjYSHbCn6ECWNM27toZY1eqxXveJVL4mMNGUtMZu2Yc6GAid43jA_TmZApJ6djyh0iqvu-YNhOB9hGmvfdy4M_Fr1Y61EZQ-j1oIjD1MF0k1dN99xXVRKV0EpBi03o3AMgo_p4Lk3A49jwtvuitT9AAAAAAAAAAAAAAAAA/64da82f6bf67de1b12789030/64da82f6bf67de1b1278903b_Asset%208.svg" alt="hCaptcha logo" title="hCaptcha logo" />  
 
 **0** dependencies. **<1kb** gzipped. Integrates well with Vue.JS, React, Preact, Angular, etc.
 
@@ -12,16 +12,20 @@ It allows for easy integration with hCaptcha in many modern web frameworks.
 
 Use your favorite package manager:
 ```bash
-yarn add vanilla-hcaptcha
+yarn add @hcaptcha/vanilla-hcaptcha
 ```
 
 ```bash
-npm install vanilla-hcaptcha
+pnpm add @hcaptcha/vanilla-hcaptcha
+```
+
+```bash
+npm install @hcaptcha/vanilla-hcaptcha
 ```
 
 Or via cdn:
 ```html
-<script src="https://cdn.jsdelivr.net/npm/vanilla-hcaptcha"></script>
+<script src="https://cdn.jsdelivr.net/npm/@hcaptcha/vanilla-hcaptcha"></script>
 ```
 
 ## Usage
@@ -126,7 +130,7 @@ mainstream web frameworks such as: React, Preact, Vue.js, Angular, Stencil.js, e
 <html ng-app="angularjsApp">
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanilla-hcaptcha"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@hcaptcha/vanilla-hcaptcha"></script>
 
     <script>
         angular.module('angularjsApp', [])
@@ -160,7 +164,7 @@ mainstream web frameworks such as: React, Preact, Vue.js, Angular, Stencil.js, e
 
 ```html
 
-<script src="https://cdn.jsdelivr.net/npm/vanilla-hcaptcha"></script>
+<script src="https://cdn.jsdelivr.net/npm/@hcaptcha/vanilla-hcaptcha"></script>
 
 <h-captcha id="signupCaptcha"
            site-key="781559eb-513a-4bae-8d29-d4af340e3624"
@@ -241,11 +245,11 @@ The following methods allow for programmatic control, necessary only in case of 
 
 ## Commands
 
-* `yarn build`
+* `pnpm build`
   > Build a production version of the component.
 
-* `yarn dev`
+* `pnpm dev`
   > Build dev version with hot reload.
 
-* `yarn test`
+* `pnpm test`
   > Runs unit tests.

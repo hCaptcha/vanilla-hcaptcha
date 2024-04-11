@@ -1,21 +1,28 @@
 {
-  "name": "vanilla-hcaptcha",
+  "name": "@hcaptcha/vanilla-hcaptcha",
   "description": "Vanilla Web Component for hCaptcha. 0 dependencies. <1kb gzipped.",
   "version": "1.0.2",
   "main": "dist/index.min.js",
   "types": "dist/hcaptcha.d.ts",
-  "author": {
-    "name": "Sergiu Danalachi <danalachi.sergiu@gmail.com>",
-    "url": "https://github.com/DSergiu"
+  "author": "hCaptcha team and contributors",
+  "homepage": "https://github.com/hCaptcha/vanilla-hcaptcha",
+  "organization": "hCaptcha",
+  "license": "MIT",
+  "private": false,
+  "publishConfig": {
+    "registry":"https://registry.npmjs.org",
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hCaptcha/vanilla-hcaptcha.git",
+    "web": "https://github.com/hCaptcha/vanilla-hcaptcha"
   },
   "files": [
     "dist",
     "src",
     "demo.html"
   ],
-  "homepage": "https://github.com/DSergiu/vanilla-hcaptcha",
-  "private": false,
-  "license": "MIT",
   "scripts": {
     "dev": "rollup -c -w",
     "build": "rollup -c",
