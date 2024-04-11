@@ -6,7 +6,12 @@ It allows for easy integration with hCaptcha in many modern web frameworks.
 
 **0** dependencies. **<1kb** gzipped. Integrates well with Vue.JS, React, Preact, Angular, etc.
 
-[Install](#install) | [Usage](#usage) | [Attributes](#attributes) | [Events](#events) | [Methods](#methods)
+[Install](#install) 
+| [Browser Compatibility](#browser-compatibility) 
+| [Usage](#usage) 
+| [Attributes](#attributes) 
+| [Events](#events) 
+| [Methods](#methods)
 
 ## Install
 
@@ -27,6 +32,20 @@ Or via cdn:
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@hcaptcha/vanilla-hcaptcha"></script>
 ```
+
+## Browser Compatibility
+
+hCaptcha web component is using es6 syntax and window property [customElements](https://developer.mozilla.org/en-US/docs/Web/API/Window/customElements).
+
+| Browser         | Min Version |
+|-----------------|-------------|
+| Chrome          | 54          |
+| Edge            | 79          |
+| Firefox         | 63          |
+| Opera           | 41          |
+| Safari          | 10.1        |
+| Chrome Android  | 54          |
+| Firefox Android | 63          |
 
 ## Usage
 
