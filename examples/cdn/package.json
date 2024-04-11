@@ -3,15 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
-  "author": {
-    "name": "Sergiu Danalachi <danalachi.sergiu@gmail.com>",
-    "url": "https://github.com/DSergiu"
-  },
   "scripts": {
     "start": "serve -p 3001",
     "test": "echo Examples have no tests."
   },
   "dependencies": {
-    "vanilla-hcaptcha": "1.0.0-alpha.3"
+    "vanilla-hcaptcha": "1.0.2"
   }
 }

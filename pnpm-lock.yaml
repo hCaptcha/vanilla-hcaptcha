@@ -15,8 +15,8 @@ importers:
   examples/cdn:
     dependencies:
       vanilla-hcaptcha:
-        specifier: 1.0.0-alpha.3
-        version: 1.0.0-alpha.3
+        specifier: 1.0.2
+        version: link:../..
 
   packages/vanilla-hcaptcha:
     devDependencies:
@@ -5647,10 +5647,6 @@ packages:
     dependencies:
       builtins: 1.0.3
     dev: true
-
-  /vanilla-hcaptcha@1.0.0-alpha.3:
-    resolution: {integrity: sha512-HxdQlCJAJlX4mBzqZMLuYIqnscSjAYHzzjradPL/NClnnS9fVmMz771dOYNGmj1uaVfLMGYOoWdTPi8YUyKc3Q==}
-    dev: false
 
   /vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
