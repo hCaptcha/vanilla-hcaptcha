@@ -35,6 +35,6 @@ jobs:
 
       - name: 'Publish'
         if: contains('refs/heads/master', github.ref)
-        run: pnpm --filter=@hcaptcha/vanilla-hcaptcha publish
+        run: pnpm --filter=@hcaptcha/vanilla-hcaptcha --no-git-checks publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
