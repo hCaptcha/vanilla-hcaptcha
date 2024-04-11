@@ -3,8 +3,8 @@
   "description": "Vanilla Web Component for hCaptcha. 0 dependencies. <1kb gzipped.",
   "version": "1.0.2",
   "author": {
-    "name": "Sergiu Danalachi <danalachi.sergiu@gmail.com>",
-    "url": "https://github.com/DSergiu"
+    "name": "hCaptcha <support@hcaptcha.com>",
+    "url": "https://www.hcaptcha.com"
   },
   "packageManager": "pnpm@8.8.0",
   "private": true,
