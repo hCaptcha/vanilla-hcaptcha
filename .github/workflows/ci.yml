@@ -14,14 +14,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8.x
+          run_install: false
+
       - uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
-      - run: pnpm setup
+
+      - run: pnpm run setup
+
       - run: pnpm build
+
       - run: pnpm test
+
       - run: cp README.md packages/vanilla-hcaptcha
+
       - name: 'Publish'
         if: contains('refs/heads/master', github.ref)
         run: pnpm --filter=@hcaptcha/vanilla-hcaptcha publish
