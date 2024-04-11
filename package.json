@@ -2,26 +2,20 @@
   "name": "vanilla-hcaptcha",
   "description": "Vanilla Web Component for hCaptcha. 0 dependencies. <1kb gzipped.",
   "version": "1.0.2",
-  "workspaces": {
-    "packages": [
-      "packages/*",
-      "examples/*"
-    ],
-    "nohoist": [ "**/vanilla-hcaptcha" ]
-  },
   "author": {
-    "name": "Sergiu Danalachi <danalachi.sergiu@gmail.com>",
-    "url": "https://github.com/DSergiu"
+    "name": "hCaptcha <support@hcaptcha.com>",
+    "url": "https://www.hcaptcha.com"
   },
+  "packageManager": "pnpm@8.8.0",
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "lerna run dev --stream",
-    "build": "lerna run build --stream",
-    "test": "lerna run test --stream"
+    "setup": "pnpm install --frozen-lockfile --prefer-offline",
+    "dev": "pnpm -r --stream run dev",
+    "build": "pnpm -r --stream run build",
+    "test": "pnpm --r -stream run test"
   },
   "devDependencies": {
-    "lerna": "^4.0.0",
     "serve": "^13.0.2"
   }
 }
