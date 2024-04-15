@@ -66,7 +66,7 @@ mainstream web frameworks such as: React, Preact, Vue.js, Angular, Stencil.js, e
 
 1. Import once in application (`main.js`). Ignore the custom element.
     ```js
-    import "vanilla-hcaptcha";
+    import "@hcaptcha/vanilla-hcaptcha";
     
     Vue.config.ignoredElements = [
       "h-captcha"
@@ -102,7 +102,7 @@ mainstream web frameworks such as: React, Preact, Vue.js, Angular, Stencil.js, e
 
 1. Import once in application (`index.js`).
     ```js
-    import 'vanilla-hcaptcha';
+    import '@hcaptcha/vanilla-hcaptcha';
     ```
 
 2. Add event handler after mount
@@ -129,7 +129,7 @@ mainstream web frameworks such as: React, Preact, Vue.js, Angular, Stencil.js, e
 
 1. Import once in application (`main.ts`).
     ```js
-    import 'vanilla-hcaptcha';
+    import '@hcaptcha/vanilla-hcaptcha';
     ```
 2. Add [`CUSTOM_ELEMENTS_SCHEMA`](https://angular.io/api/core/CUSTOM_ELEMENTS_SCHEMA) to `@NgModule.schemas`
 
@@ -225,6 +225,7 @@ If you would like to programmatically call the `render()` method, you can set `a
 ### API Attributes
 
 These attributes are optional.
+These attributes are used at web component creation time and thus, cannot be dynamic.
 
 | Attribute         | Values/Type                | Default | Description                                                                                                        |
 |-------------------|----------------------------|---------|--------------------------------------------------------------------------------------------------------------------|

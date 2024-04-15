@@ -14,9 +14,9 @@ importers:
 
   examples/cdn:
     dependencies:
-      vanilla-hcaptcha:
+      '@hcaptcha/vanilla-hcaptcha':
         specifier: 1.0.2
-        version: link:../..
+        version: link:../../packages/vanilla-hcaptcha
 
   packages/vanilla-hcaptcha:
     devDependencies:

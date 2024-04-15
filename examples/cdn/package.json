@@ -8,6 +8,6 @@
     "test": "echo Examples have no tests."
   },
   "dependencies": {
-    "vanilla-hcaptcha": "1.0.2"
+    "@hcaptcha/vanilla-hcaptcha": "1.0.2"
   }
 }
