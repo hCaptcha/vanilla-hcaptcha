@@ -10,6 +10,8 @@
     <script>
         angular.module('angularjsApp', [])
             .controller('ExampleController', function ($scope) {
+                $scope.jsapi = "https://js.hcaptcha.com/1/api.js";
+                $scope.recaptchacompat = "true";
                 $scope.siteKey = "781559eb-513a-4bae-8d29-d4af340e3624";
                 $scope.onCaptchaVerified = function (e) {
                     console.log('verified event', e);
@@ -26,6 +28,8 @@
     {{token}}
     <div style="margin-top: 40px">size: normal, theme: dark</div>
     <h-captcha sitekey="{{siteKey}}"
+               jsapi="{{jsapi}}"
+               recaptchacompat="{{recaptchacompat}}"
                host="example.com"
                size="normal"
                theme="dark"
@@ -35,6 +39,8 @@
 
     <div style="margin-top: 20px">size: compact, theme: light</div>
     <h-captcha sitekey="{{siteKey}}"
+               jsapi="{{jsapi}}"
+               recaptchacompat="{{recaptchacompat}}"
                host="example.com"
                size="compact"
                theme="light"
@@ -45,6 +51,8 @@
     <div style="margin-top: 20px">size: invisible</div>
     <h-captcha ng-ref="invCaptcha"
                sitekey="{{siteKey}}"
+               jsapi="{{jsapi}}"
+               recaptchacompat="{{recaptchacompat}}"
                host="example.com"
                size="invisible"
                ng-on-verified="onCaptchaVerified($event)"

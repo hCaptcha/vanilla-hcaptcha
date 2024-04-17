@@ -17,6 +17,7 @@
             ref="captcha1"
             host="example.com"
             :sitekey="sitekey"
+            :jsapi="jsapi"
             size="normal"
             theme="dark"
             @verified="onVerify"
@@ -31,6 +32,7 @@
     <h-captcha
             host="example.com"
             :sitekey="sitekey"
+            :jsapi="jsapi"
             size="compact"
             theme="light"
             @verified="onVerify"
@@ -44,6 +46,7 @@
             ref="invCaptcha"
             host="example.com"
             :sitekey="sitekey"
+            :jsapi="jsapi"
             size="invisible"
             theme="light"
             @verified="onVerify"
@@ -60,6 +63,7 @@
         data() {
             return {
                 sitekey: "781559eb-513a-4bae-8d29-d4af340e3624",
+                jsapi: "https://js.hcaptcha.com/1/api.js",
                 token: ""
             };
         },

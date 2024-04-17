@@ -113,4 +113,35 @@ describe('hCaptcha Vanilla Web Component', () => {
         hCaptchaEl2.addEventListener('loaded', () => done());
     });
 
+    it('should use dynamic jsapi attribute', async () => {
+        const hcaptcha = window.hcaptcha;
+        delete window.hcaptcha;
+        delete window._hCaptchaOnLoadPromise;
+
+        const scriptElement = document.createElement("script");
+
+        jest.spyOn(document, "createElement").mockImplementation((tagName) => {
+            if (tagName === 'script') {
+                // Simulate js api onload.
+                window._hCaptchaOnLoad();
+                window.hcaptcha = hcaptcha;
+                return scriptElement;
+            }
+            throw new Error("Unexpected tag name to be mocked.");
+        });
+
+        document.body.innerHTML = `<h-captcha id="signupCaptcha2" site-key="10000000-ffff-ffff-ffff-000000000001"></h-captcha>`;
+
+        document.getElementById("signupCaptcha2").setAttribute("jsapi", "https://example.hcaptcha.com/1/api.js");
+
+        const hCaptchaEl2 = document.getElementById('signupCaptcha2');
+
+        await new Promise((resolve, reject) => {
+            hCaptchaEl2.addEventListener("loaded", () => resolve());
+            setTimeout(() => reject("failed to load js api in time"), 1);
+        });
+
+        expect(scriptElement.src).toEqual("https://example.hcaptcha.com/1/api.js?render=explicit&onload=_hCaptchaOnLoad&sentry=true");
+    });
+
 });
