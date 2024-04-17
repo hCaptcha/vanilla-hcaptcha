@@ -123,7 +123,7 @@ export class VanillaHCaptchaWebComponent extends HTMLElement {
             // if values will be set async.
             this.loadJsApiTimeout = setTimeout(() => {
                 if (this.jsApiLoaded) {
-                    console.error(`${logPrefix} js api attributes cannot change once hcaptcha js api was loaded.`);
+                    console.error(`${logPrefix} JS API attributes cannot change once hCaptcha JS API is loaded.`);
                 }
 
                 this.jsApiLoaded = true;
