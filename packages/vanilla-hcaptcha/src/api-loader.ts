@@ -21,7 +21,7 @@ export function loadJsApiIfNotAlready(config: VanillaHCaptchaJsApiConfig): Promi
     if (window._hCaptchaOnLoadPromise) {
         return window._hCaptchaOnLoadPromise;
     } else if (window.hcaptcha) {
-        console.warn("[vanilla-hcaptcha] hCaptcha JS API detected to be externally loaded. " +
+        console.warn("[@hcaptcha/vanilla-hcaptcha]: hCaptcha JS API detected to be externally loaded. " +
             "Unless you know what are you doing, this task should be delegated to this web component.");
         window._hCaptchaOnLoadPromise = Promise.resolve();
         return window._hCaptchaOnLoadPromise;
@@ -53,10 +53,10 @@ function getScriptSrc(config: VanillaHCaptchaJsApiConfig) {
     let scriptSrc = config.jsapi;
     scriptSrc = addQueryParamIfDefined(scriptSrc, 'render', 'explicit');
     scriptSrc = addQueryParamIfDefined(scriptSrc, 'onload', '_hCaptchaOnLoad');
-    scriptSrc = addQueryParamIfDefined(scriptSrc, 'recaptchacompat', config.reCaptchaCompat === false ? 'off' : null);
+    scriptSrc = addQueryParamIfDefined(scriptSrc, 'recaptchacompat', config.recaptchacompat === 'false' ? 'off' : null);
     scriptSrc = addQueryParamIfDefined(scriptSrc, 'host', config.host);
     scriptSrc = addQueryParamIfDefined(scriptSrc, 'hl', config.hl);
-    scriptSrc = addQueryParamIfDefined(scriptSrc, 'sentry', JSON.stringify(config.sentry));
+    scriptSrc = addQueryParamIfDefined(scriptSrc, 'sentry', config.sentry === 'false' ? 'false' : 'true');
     scriptSrc = addQueryParamIfDefined(scriptSrc, 'endpoint', config.endpoint);
     scriptSrc = addQueryParamIfDefined(scriptSrc, 'assethost', config.assethost);
     scriptSrc = addQueryParamIfDefined(scriptSrc, 'imghost', config.imghost);

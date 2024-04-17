@@ -225,11 +225,10 @@ If you would like to programmatically call the `render()` method, you can set `a
 ### API Attributes
 
 These attributes are optional.
-These attributes are used at web component creation time and thus, cannot be dynamic.
 
 | Attribute         | Values/Type                | Default | Description                                                                                                        |
 |-------------------|----------------------------|---------|--------------------------------------------------------------------------------------------------------------------|
-| `reCaptchaCompat` | Boolean                    | `true`  | Disable drop-in replacement for reCAPTCHA with `false` to prevent hCaptcha from injecting into window.grecaptcha.  |
+| `recaptchacompat` | Boolean                    | `true`  | Disable drop-in replacement for reCAPTCHA with `false` to prevent hCaptcha from injecting into window.grecaptcha.  |
 | `hl`              | String (ISO 639-2 code)    | -       | hCaptcha auto-detects language via the user's browser. This overrides that to set a default UI language.           |
 | `jsapi`           | String                     | -       | See Enterprise docs.                                                                                               |
 | `endpoint`        | String                     | -       | See Enterprise docs.                                                                                               |

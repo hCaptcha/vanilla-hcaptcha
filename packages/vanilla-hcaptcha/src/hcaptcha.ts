@@ -18,14 +18,14 @@ export interface VanillaHCaptchaJsApiConfig {
     /**
      * Default: true
      */
-    sentry: boolean;
+    sentry?: string;
 
     /**
      * Disable drop-in replacement for reCAPTCHA with false to prevent
      * hCaptcha from injecting into window.grecaptcha.
      * Default: true
      */
-    reCaptchaCompat: boolean;
+    recaptchacompat?: string;
 
     /**
      * hCaptcha auto-detects language via the user's browser.
@@ -48,32 +48,111 @@ type VanillaHCaptchaRenderConfig = Omit<ConfigRender,
     "open-callback" |
     "close-callback">;
 
+const logPrefix = '[@hcaptcha/vanilla-hcaptcha]:';
+
 export class VanillaHCaptchaWebComponent extends HTMLElement {
 
     private hcaptchaId: HCaptchaId;
+    private loadJsApiTimeout: ReturnType<typeof setTimeout>;
+    private jsApiLoaded = false;
 
     connectedCallback() {
-        const jsApiConfig: VanillaHCaptchaJsApiConfig = {
+        this.tryLoadingJsApi();
+    }
+
+    disconnectedCallback() {
+        if (this.loadJsApiTimeout) {
+            clearTimeout(this.loadJsApiTimeout);
+        }
+    }
+
+    static get observedAttributes() {
+        return [
+            'jsapi',
+            'host',
+            'endpoint',
+            'reportapi',
+            'assethost',
+            'imghost',
+            'hl',
+            'sentry',
+            'recaptchacompat'
+        ];
+    }
+
+    attributeChangedCallback(): void {
+        this.tryLoadingJsApi();
+    }
+
+    private isJsApiConfigValid(jsApiConfig: VanillaHCaptchaJsApiConfig): boolean {
+        const httpAttrs: (keyof VanillaHCaptchaJsApiConfig)[] = [ 'jsapi', 'host', 'endpoint' , 'reportapi', 'assethost', 'imghost' ];
+
+        const invalidHttpAttrs = httpAttrs.some((attrName) => {
+            return jsApiConfig[attrName] && !jsApiConfig[attrName].match(/^\w/);
+        });
+
+        let validApiConfig = !invalidHttpAttrs;
+
+        if (jsApiConfig.hl && !jsApiConfig.hl.match(/[\w-]+/)) {
+            validApiConfig = false;
+        }
+
+        if (jsApiConfig.sentry && ['true', 'false'].indexOf(jsApiConfig.sentry) === -1) {
+            validApiConfig = false;
+        }
+
+        if (jsApiConfig.recaptchacompat && ['true', 'false'].indexOf(jsApiConfig.recaptchacompat) === -1) {
+            validApiConfig = false;
+        }
+
+        return validApiConfig;
+    }
+
+    private tryLoadingJsApi(): void {
+        const jsApiConfig = this.getJsApiConfig();
+        const validApiConfig = this.isJsApiConfigValid(jsApiConfig);
+
+        if(validApiConfig) {
+            if (this.loadJsApiTimeout) {
+                clearTimeout(this.loadJsApiTimeout);
+            }
+
+            // We use `setTimeout 1ms` to postpone js api load execution until all dynamic props are loaded.
+            // Example: in case of react, dynamic attributes do not have a default like angular
+            // which uses "{{value}}" notation, thus it cannot be known at component creation time
+            // if values will be set async.
+            this.loadJsApiTimeout = setTimeout(() => {
+                if (this.jsApiLoaded) {
+                    console.error(`${logPrefix} JS API attributes cannot change once hCaptcha JS API is loaded.`);
+                }
+
+                this.jsApiLoaded = true;
+
+                loadJsApiIfNotAlready(jsApiConfig)
+                    .then(this.onApiLoaded.bind(this))
+                    .catch(this.onError.bind(this));
+            }, 1);
+        }
+    }
+
+    private getJsApiConfig(): VanillaHCaptchaJsApiConfig {
+        return {
             host: this.getAttribute('host'),
             hl: this.getAttribute('hl'),
-            sentry: this.getAttribute('sentry') !== "false",
-            reCaptchaCompat: this.getAttribute('reCaptchaCompat') === "false",
+            sentry: this.getAttribute('sentry'),
+            recaptchacompat: this.getAttribute('recaptchacompat'),
             jsapi: this.getAttribute('jsapi') || 'https://js.hcaptcha.com/1/api.js',
             endpoint: this.getAttribute('endpoint'),
             reportapi: this.getAttribute('reportapi'),
             assethost: this.getAttribute('assethost'),
             imghost: this.getAttribute('imghost'),
         };
-
-        loadJsApiIfNotAlready(jsApiConfig)
-            .then(this.onApiLoaded.bind(this))
-            .catch(this.onError.bind(this));
     }
 
     private onApiLoaded(): void {
         this.$emit('loaded');
 
-        const autoRender = this.getAttribute('auto-render') !== "false";
+        const autoRender = this.getAttribute('auto-render') !== 'false';
 
         const renderConfig: VanillaHCaptchaRenderConfig = {
             sitekey: this.getAttribute('sitekey') || this.getAttribute('site-key'),
@@ -148,7 +227,7 @@ export class VanillaHCaptchaWebComponent extends HTMLElement {
     render(config: VanillaHCaptchaRenderConfig): void {
         this.assertApiLoaded('render');
         if (this.hcaptchaId) {
-            console.warn("hCaptcha was already rendered. You may want to call 'reset()' first.");
+            console.warn(`${logPrefix} hCaptcha was already rendered. You may want to call 'reset()' first.`);
             return;
         }
         this.hcaptchaId = hcaptcha.render(this, {

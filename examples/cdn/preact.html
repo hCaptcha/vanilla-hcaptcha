@@ -5,8 +5,8 @@
     <script src="https://unpkg.com/preact/dist/preact.umd.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <script src="https://unpkg.com/vanilla-hcaptcha" async defer></script>
-    <!--    <script src="/node_modules/@hcaptcha/vanilla-hcaptcha/dist/index.min.js"></script>-->
+<!--    <script src="https://unpkg.com/@hcaptcha/vanilla-hcaptcha" async defer></script>-->
+    <script src="/node_modules/@hcaptcha/vanilla-hcaptcha/dist/index.min.js"></script>
 </head>
 <body>
 
@@ -22,6 +22,9 @@
             super(props);
             this.state = {
                 sitekey: "781559eb-513a-4bae-8d29-d4af340e3624",
+                jsapi: "https://js.hcaptcha.com/1/api.js",
+                recaptchacompat: true,
+                sentry: true,
                 token: "",
             };
             this.captchaRef = preact.createRef();
@@ -45,6 +48,9 @@
                     <h-captcha
                         ref={this.captchaRef}
                         sitekey={this.state.sitekey}
+                        jsapi={this.state.jsapi}
+                        recaptchacompat={this.state.recaptchacompat}
+                        sentry={this.state.sentry}
                         host="example.com"
                         size="normal"
                         theme="dark"

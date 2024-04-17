@@ -1,0 +1,26 @@
+<main class="main">
+  {{token}}
+  <div style="margin-top: 40px">size: normal, theme: dark</div>
+  <h-captcha [attr.sitekey]="siteKey"
+             [attr.jsapi]="jsapi"
+             [attr.recaptchacompat]="recaptchacompat"
+             host="example.com"
+             size="normal"
+             theme="dark"
+             (verified)="onCaptchaVerified($event)"
+             (closed)="onCaptchaClosed()"
+             (error)="onCaptchaError($event)"
+  ></h-captcha>
+
+  <div style="margin-top: 20px">size: compact, theme: light</div>
+  <h-captcha [attr.sitekey]="siteKey"
+             [attr.jsapi]="jsapi"
+             [attr.recaptchacompat]="recaptchacompat"
+             host="example.com"
+             size="compact"
+             theme="light"
+             (verified)="onCaptchaVerified($event)"
+             (closed)="onCaptchaClosed()"
+             (error)="onCaptchaError($event)"
+  ></h-captcha>
+</main>

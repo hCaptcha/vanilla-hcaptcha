@@ -24,6 +24,8 @@
 <script>
     const signupCaptcha = document.getElementById('signupCaptcha');
 
+    signupCaptcha.setAttribute("jsapi", "https://js.hcaptcha.com/1/api.js");
+
     signupCaptcha.addEventListener('loaded', () => {
         console.log('hCaptcha Component Loaded');
         // Safe to call `execute` once component is loaded
