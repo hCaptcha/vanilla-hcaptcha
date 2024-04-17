@@ -1,7 +1,7 @@
 {
   "name": "vanilla-hcaptcha",
   "description": "Vanilla Web Component for hCaptcha. 0 dependencies. <1kb gzipped.",
-  "version": "1.0.3",
+  "version": "0.0.0",
   "author": {
     "name": "hCaptcha <support@hcaptcha.com>",
     "url": "https://www.hcaptcha.com"
