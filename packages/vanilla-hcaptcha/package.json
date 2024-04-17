@@ -3,6 +3,7 @@
   "description": "Vanilla Web Component for hCaptcha. 0 dependencies. <1kb gzipped.",
   "version": "1.0.3",
   "main": "dist/index.min.js",
+  "module": "dist/index.min.mjs",
   "types": "dist/hcaptcha.d.ts",
   "author": "hCaptcha team and contributors",
   "homepage": "https://github.com/hCaptcha/vanilla-hcaptcha",
