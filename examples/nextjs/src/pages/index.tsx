@@ -9,10 +9,9 @@ export default function Home() {
     useEffect(() => {
         console.warn('next.js in dev mode will call useEffect twice. Link: https://react.dev/reference/react/StrictMode#fixing-bugs-found-by-double-rendering-in-development');
 
-        import('../../../../packages/vanilla-hcaptcha');
+        import('@hcaptcha/vanilla-hcaptcha');
 
         if (captchaRef.current) {
-
             captchaRef.current.addEventListener('verified', (e: Event) => {
                 // @ts-ignore
                 const token = e.token;
