@@ -1,9 +1,18 @@
 import { loadJsApiIfNotAlready } from './api-loader';
 
+const logPrefix = '[@hcaptcha/vanilla-hcaptcha]:';
+
 class VanillaHCaptchaError extends Error {
     constructor(msg: string) {
-        super(`[hcaptcha-web-component]: ${msg}`);
+        super(`${logPrefix}: ${msg}`);
         Object.setPrototypeOf(this, VanillaHCaptchaError.prototype);
+    }
+}
+
+const errMsgs = {
+    notRendered: `hCaptcha was not yet rendered. Please call "render()" first.`,
+    apiNotLoaded(fnName: string): string {
+        return `hCaptcha JS API was not loaded yet. Please wait for \`loaded\` event to safely call "${fnName}".`
     }
 }
 
@@ -13,7 +22,7 @@ export interface VanillaHCaptchaJsApiConfig {
      * The hCaptcha JS API.
      * Default: "https://js.hcaptcha.com/1/api.js"
      */
-    jsapi?: string;
+    jsapi: string;
 
     /**
      * Default: true
@@ -48,12 +57,10 @@ type VanillaHCaptchaRenderConfig = Omit<ConfigRender,
     "open-callback" |
     "close-callback">;
 
-const logPrefix = '[@hcaptcha/vanilla-hcaptcha]:';
-
 export class VanillaHCaptchaWebComponent extends HTMLElement {
 
-    private hcaptchaId: HCaptchaId;
-    private loadJsApiTimeout: ReturnType<typeof setTimeout>;
+    private hcaptchaId: HCaptchaId | undefined = undefined;
+    private loadJsApiTimeout: ReturnType<typeof setTimeout> | undefined = undefined;
     private jsApiLoaded = false;
 
     connectedCallback() {
@@ -88,7 +95,7 @@ export class VanillaHCaptchaWebComponent extends HTMLElement {
         const httpAttrs: (keyof VanillaHCaptchaJsApiConfig)[] = [ 'jsapi', 'host', 'endpoint' , 'reportapi', 'assethost', 'imghost' ];
 
         const invalidHttpAttrs = httpAttrs.some((attrName) => {
-            return jsApiConfig[attrName] && !jsApiConfig[attrName].match(/^\w/);
+            return jsApiConfig[attrName] && !jsApiConfig[attrName]?.match(/^\w/);
         });
 
         let validApiConfig = !invalidHttpAttrs;
@@ -135,69 +142,66 @@ export class VanillaHCaptchaWebComponent extends HTMLElement {
         }
     }
 
+    private getAttr(name: string): string | undefined {
+        return this.getAttribute(name) || undefined;
+    }
+
     private getJsApiConfig(): VanillaHCaptchaJsApiConfig {
         return {
-            host: this.getAttribute('host'),
-            hl: this.getAttribute('hl'),
-            sentry: this.getAttribute('sentry'),
-            recaptchacompat: this.getAttribute('recaptchacompat'),
-            jsapi: this.getAttribute('jsapi') || 'https://js.hcaptcha.com/1/api.js',
-            endpoint: this.getAttribute('endpoint'),
-            reportapi: this.getAttribute('reportapi'),
-            assethost: this.getAttribute('assethost'),
-            imghost: this.getAttribute('imghost'),
+            host: this.getAttr('host'),
+            hl: this.getAttr('hl'),
+            sentry: this.getAttr('sentry'),
+            recaptchacompat: this.getAttr('recaptchacompat'),
+            jsapi: this.getAttr('jsapi') || 'https://js.hcaptcha.com/1/api.js',
+            endpoint: this.getAttr('endpoint'),
+            reportapi: this.getAttr('reportapi'),
+            assethost: this.getAttr('assethost'),
+            imghost: this.getAttr('imghost'),
         };
     }
 
     private onApiLoaded(): void {
         this.$emit('loaded');
 
-        const autoRender = this.getAttribute('auto-render') !== 'false';
+        const autoRender = this.getAttr('auto-render') !== 'false';
+
+        if (!autoRender) {
+            return;
+        }
+
+        const rqdata = this.getAttr('rqdata');
+        const tabindex = this.getAttr('tabindex');
+        const sitekey = this.getAttr('sitekey') || this.getAttr('site-key');
+        const attrChallengeContainer = this.getAttr('challenge-container');
+
+        // Check required attributes are set when auto render is enabled
+        if (!sitekey) {
+            // Frontend frameworks might render the component with empty attributes when binding a value.
+            // To avoid errors, simply stop the rendering process.
+            // throw new VanillaHCaptchaError('Missing "sitekey" attribute. ');
+            return;
+        }
 
         const renderConfig: VanillaHCaptchaRenderConfig = {
-            sitekey: this.getAttribute('sitekey') || this.getAttribute('site-key'),
+            sitekey: sitekey,
             // @ts-ignore
-            theme: this.getAttribute('theme'),
+            theme: this.getAttr('theme'),
             // @ts-ignore
-            size: this.getAttribute('size'),
-            hl: this.getAttribute('hl'),
-            tplinks: this.getAttribute('tplinks') === "off" ? "off" : "on",
-            tabindex: parseInt(this.getAttribute('tabindex')),
-            custom: this.getAttribute('custom') === "true",
+            size: this.getAttr('size'),
+            hl: this.getAttr('hl'),
+            tplinks: this.getAttr('tplinks') === "off" ? "off" : "on",
+            tabindex: tabindex ? parseInt(tabindex) : undefined,
+            custom: this.getAttr('custom') === "true",
         };
 
-        const attrChallengeContainer = this.getAttribute('challenge-container');
         if (attrChallengeContainer) {
             renderConfig["challenge-container"] = attrChallengeContainer;
         }
 
-        const rqdata = this.getAttribute('rqdata');
+        this.render(renderConfig);
 
-        if (autoRender) {
-            // Check required attributes are set when auto render is enabled
-            if (!renderConfig.sitekey) {
-                // Frontend frameworks might render the component with empty attributes when binding a value.
-                // To avoid errors, simply stop the rendering process.
-                // throw new VanillaHCaptchaError('Missing "sitekey" attribute. ');
-                return;
-            }
-        }
-
-        if (autoRender) {
-            this.render(renderConfig);
+        if (rqdata) {
             this.setData(rqdata);
-        }
-    }
-
-    private assertApiLoaded(fnName: string) {
-        if (!hcaptcha) {
-            throw new VanillaHCaptchaError(`hCaptcha JS API was not loaded yet. Please wait for \`loaded\` event to safely call "${fnName}".`);
-        }
-    }
-
-    private assertRendered() {
-        if (!this.hcaptchaId) {
-            throw new VanillaHCaptchaError(`hCaptcha was not yet rendered. Please call "render()" first.`);
         }
     }
 
@@ -225,11 +229,15 @@ export class VanillaHCaptchaWebComponent extends HTMLElement {
      * @param config
      */
     render(config: VanillaHCaptchaRenderConfig): void {
-        this.assertApiLoaded('render');
+        if (!hcaptcha) {
+            throw new VanillaHCaptchaError(errMsgs.apiNotLoaded('render'));
+        }
+
         if (this.hcaptchaId) {
             console.warn(`${logPrefix} hCaptcha was already rendered. You may want to call 'reset()' first.`);
             return;
         }
+
         this.hcaptchaId = hcaptcha.render(this, {
             ...config,
             'callback': () => {
@@ -255,10 +263,12 @@ export class VanillaHCaptchaWebComponent extends HTMLElement {
 
     /**
      * Sets the rqdata.
-     * @param rqdata
      */
-    setData(rqdata: string | null): void {
-        this.assertRendered();
+    setData(rqdata: string): void {
+        if (!this.hcaptchaId) {
+            throw new VanillaHCaptchaError(errMsgs.notRendered);
+        }
+
         hcaptcha.setData(this.hcaptchaId, { rqdata });
     }
 
@@ -266,8 +276,14 @@ export class VanillaHCaptchaWebComponent extends HTMLElement {
      * Triggers hCaptcha verification.
      */
     execute(): void {
-        this.assertApiLoaded('execute');
-        this.assertRendered();
+        if (!hcaptcha) {
+            throw new VanillaHCaptchaError(errMsgs.apiNotLoaded('execute'));
+        }
+
+        if (!this.hcaptchaId) {
+            throw new VanillaHCaptchaError(errMsgs.notRendered);
+        }
+
         hcaptcha.execute(this.hcaptchaId);
     }
 
@@ -276,18 +292,29 @@ export class VanillaHCaptchaWebComponent extends HTMLElement {
      * Returns a Promise which resolved with the token results or throws in case of errors.
      */
     executeAsync(): Promise<HCaptchaResponse> {
-        this.assertApiLoaded('execute');
-        this.assertRendered();
-        // @ts-ignore
-        return hcaptcha.execute(this.hcaptchaId, { async: true });
+        if (!hcaptcha) {
+            throw new VanillaHCaptchaError(errMsgs.apiNotLoaded('execute'));
+        }
+
+        if (!this.hcaptchaId) {
+            throw new VanillaHCaptchaError(errMsgs.notRendered);
+        }
+
+        return hcaptcha.execute(this.hcaptchaId, { async: true }) as Promise<HCaptchaResponse>;
     }
 
     /**
      * Resets the hCaptcha verification.
      */
     reset(): void {
-        this.assertApiLoaded('reset');
-        this.assertRendered();
+        if (!hcaptcha) {
+            throw new VanillaHCaptchaError(errMsgs.apiNotLoaded('reset'));
+        }
+
+        if (!this.hcaptchaId) {
+            throw new VanillaHCaptchaError(errMsgs.notRendered);
+        }
+
         hcaptcha.reset(this.hcaptchaId);
     }
 

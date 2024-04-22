@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
     "target": "es6",
-    "alwaysStrict": false,
+    "noEmit": true,
+    "strict": true,
+    "alwaysStrict": true,
     "allowJs": false,
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -16,7 +19,10 @@
     ]
   },
   "files": [
-    "src/hcaptcha.ts"
+    "src/index.ts"
+  ],
+  "include": [
+    "src"
   ],
   "exclude": [
     "node_modules",
