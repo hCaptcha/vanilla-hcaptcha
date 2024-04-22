@@ -32,7 +32,9 @@ jobs:
 
       - run: pnpm run setup
 
-      - run: pnpm build
+      - run: pnpm --filter=@hcaptcha/vanilla-hcaptcha run build
+
+      - run: pnpm --filter=\!@hcaptcha/vanilla-hcaptcha run build
 
       - run: pnpm typecheck
 

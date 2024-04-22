@@ -1,6 +1,7 @@
-import { terser } from "rollup-plugin-terser";
-import filesize from "rollup-plugin-filesize";
+import { terser } from 'rollup-plugin-terser';
+import filesize from 'rollup-plugin-filesize';
 import typescript from '@rollup/plugin-typescript';
+import del from 'rollup-plugin-delete';
 
 export default {
     input: './src/index.ts',
@@ -16,6 +17,7 @@ export default {
         sourcemap: true
     }],
     plugins: [
+        del({ targets: 'dist/*' }),
         typescript({ tsconfig: './tsconfig.json' }),
         terser(),
         filesize()
