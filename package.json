@@ -11,11 +11,9 @@
   "license": "MIT",
   "scripts": {
     "setup": "pnpm install --frozen-lockfile --prefer-offline",
+    "typecheck": "pnpm -r --stream run typecheck",
     "dev": "pnpm -r --stream run dev",
     "build": "pnpm -r --stream run build",
     "test": "pnpm --r -stream run test"
-  },
-  "devDependencies": {
-    "serve": "^13.0.2"
   }
 }

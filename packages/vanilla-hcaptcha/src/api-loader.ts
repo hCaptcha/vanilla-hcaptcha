@@ -31,8 +31,8 @@ export function loadJsApiIfNotAlready(config: VanillaHCaptchaJsApiConfig): Promi
         window._hCaptchaOnLoadPromise = new Promise((resolve, reject) => {
             resolveFn = resolve;
             rejectFn = reject;
+            window._hCaptchaOnLoad = resolveFn;
         });
-        window._hCaptchaOnLoad = resolveFn;
         const scriptSrc = getScriptSrc(config);
         const script = document.createElement('script');
         script.src = scriptSrc;
@@ -53,7 +53,7 @@ function getScriptSrc(config: VanillaHCaptchaJsApiConfig) {
     let scriptSrc = config.jsapi;
     scriptSrc = addQueryParamIfDefined(scriptSrc, 'render', 'explicit');
     scriptSrc = addQueryParamIfDefined(scriptSrc, 'onload', '_hCaptchaOnLoad');
-    scriptSrc = addQueryParamIfDefined(scriptSrc, 'recaptchacompat', config.recaptchacompat === 'false' ? 'off' : null);
+    scriptSrc = addQueryParamIfDefined(scriptSrc, 'recaptchacompat', config.recaptchacompat === 'false' ? 'off' : undefined);
     scriptSrc = addQueryParamIfDefined(scriptSrc, 'host', config.host);
     scriptSrc = addQueryParamIfDefined(scriptSrc, 'hl', config.hl);
     scriptSrc = addQueryParamIfDefined(scriptSrc, 'sentry', config.sentry === 'false' ? 'false' : 'true');
@@ -64,7 +64,7 @@ function getScriptSrc(config: VanillaHCaptchaJsApiConfig) {
     return scriptSrc;
 }
 
-function addQueryParamIfDefined(url: string, queryName: string, queryValue: string) {
+function addQueryParamIfDefined(url: string, queryName: string, queryValue: string | undefined) {
     if (queryValue !== undefined && queryValue !== null) {
         const link = url.includes('?') ? '&' : '?';
         return url + link + queryName + '=' + encodeURIComponent(queryValue);

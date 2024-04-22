@@ -25,6 +25,7 @@
     "demo.html"
   ],
   "scripts": {
+    "typecheck": "tsc -p ./tsconfig.json",
     "dev": "rollup -c -w",
     "build": "rollup -c",
     "test": "jest"

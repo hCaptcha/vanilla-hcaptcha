@@ -101,8 +101,7 @@ describe('hCaptcha Vanilla Web Component', () => {
     it('should proxy "setData" method', () => {
         const mockRqData = 'invalid-site-key';
         hCaptchaEl.setData(mockRqData);
-        expect(window.hcaptcha.setData).toHaveBeenNthCalledWith(1, mockCaptchaId, { rqdata: null });
-        expect(window.hcaptcha.setData).toHaveBeenNthCalledWith(2, mockCaptchaId, { rqdata: mockRqData });
+        expect(window.hcaptcha.setData).toHaveBeenNthCalledWith(1, mockCaptchaId, { rqdata: mockRqData });
     });
 
     it('should automatically render the checkbox', (done) => {
