@@ -1,3 +1,3 @@
-import {VanillaHCaptchaWebComponent} from "./hcaptcha";
+import { VanillaHCaptchaWebComponent } from "./hcaptcha";
 
 customElements.define('h-captcha', VanillaHCaptchaWebComponent);
