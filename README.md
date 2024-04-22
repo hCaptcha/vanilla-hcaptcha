@@ -57,6 +57,7 @@ mainstream web frameworks such as: React, Preact, Vue.js, Angular, Stencil.js, e
 * [Preact](#reactjs-and-preact)
 * [Angular 2+](#angular)
 * [Angular.JS](#angularjs)
+* [Next.JS](#nextjs)
 * [Vanilla](#vanillajs)
 * You can find more examples in the `<root>/examples/cdn` directory.
 
@@ -176,6 +177,54 @@ mainstream web frameworks such as: React, Preact, Vue.js, Angular, Stencil.js, e
 </body>
 </html>
 ```
+
+### Next.JS
+
+> Example: display normal size hCaptcha with dark theme.
+
+1. Add `h-captcha` web component type by extending `JSX.IntrinsicElements` in `*.d.ts`.
+    ```ts
+    import * as React from 'react';
+
+    declare global {
+      declare namespace JSX {
+        interface IntrinsicElements {
+          'h-captcha': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement> & {
+            [k: string]: unknown;
+          }, HTMLElement>;
+        }
+      }
+    }
+    ```
+
+2. Integrate in your next.js page.
+   ```js
+    export default function HomeComponent() {
+      const sitekey = '781559eb-513a-4bae-8d29-d4af340e3624';
+      const captchaRef = createRef<HTMLElement>();
+
+      useEffect(() => {
+        import('@hcaptcha/vanilla-hcaptcha');
+   
+        if (captchaRef.current) {
+          captchaRef.current.addEventListener('verified', (e: Event) => {
+            console.log('hCaptcha event: verified', { token: e.token });
+          });
+        }
+      }, []);
+   
+      return (
+      <main>
+        <h-captcha
+            ref={captchaRef}
+            sitekey={sitekey}
+            size="normal"
+            theme="dark"
+        ></h-captcha>
+      </main>
+      );
+    }
+   ```
 
 ### Vanilla.JS
 

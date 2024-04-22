@@ -56,6 +56,8 @@
     "vue.js",
     "preact",
     "react",
-    "react.js"
+    "react.js",
+    "nextjs",
+    "next.js"
   ]
 }
