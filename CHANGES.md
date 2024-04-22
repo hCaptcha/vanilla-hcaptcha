@@ -1,5 +1,10 @@
 # Changelog
 
+# 1.1.0-alpha2
+
+- feat: enable typescript strict mode
+- chore: next.js example app
+
 # 1.1.0-alpha
 
 - feat: support dynamic JS API attributes

@@ -38,7 +38,7 @@ jobs:
 
       - run: pnpm test
 
-      - run: cp README.md packages/vanilla-hcaptcha
+      - run: cp README.md CHANGES.md packages/vanilla-hcaptcha
 
       - name: 'Publish'
         if: contains('refs/heads/master', github.ref)
