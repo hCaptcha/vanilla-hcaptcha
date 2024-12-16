@@ -2,7 +2,7 @@
 A Vanilla Web Component wrapper for [hCaptcha](https://docs.hcaptcha.com/).
 It allows for easy integration with hCaptcha in many modern web frameworks.
 
-<img width="300px" src="https://www.hcaptcha.com/hosted-assets/3u1Osx9BvMjYSHbCn6ECWNM27toZY1eqxXveJVL4mMNGUtMZu2Yc6GAid43jA_TmZApJ6djyh0iqvu-YNhOB9hGmvfdy4M_Fr1Y61EZQ-j1oIjD1MF0k1dN99xXVRKV0EpBi03o3AMgo_p4Lk3A49jwtvuitT9AAAAAAAAAAAAAAAAA/64da82f6bf67de1b12789030/64da82f6bf67de1b1278903b_Asset%208.svg" alt="hCaptcha logo" title="hCaptcha logo" />  
+<img width="300px" src="./assets/logo.svg" alt="hCaptcha logo" title="hCaptcha logo" />  
 
 **0** dependencies. **<1kb** gzipped. Integrates well with Vue.JS, React, Preact, Angular, etc.
 
