@@ -2,7 +2,7 @@
 A Vanilla Web Component wrapper for [hCaptcha](https://docs.hcaptcha.com/).
 It allows for easy integration with hCaptcha in many modern web frameworks.
 
-<img width="300px" src="https://www.hcaptcha.com/hosted-assets/3u1Osx9BvMjYSHbCn6ECWNM27toZY1eqxXveJVL4mMNGUtMZu2Yc6GAid43jA_TmZApJ6djyh0iqvu-YNhOB9hGmvfdy4M_Fr1Y61EZQ-j1oIjD1MF0k1dN99xXVRKV0EpBi03o3AMgo_p4Lk3A49jwtvuitT9AAAAAAAAAAAAAAAAA/64da82f6bf67de1b12789030/64da82f6bf67de1b1278903b_Asset%208.svg" alt="hCaptcha logo" title="hCaptcha logo" />  
+<img width="300px" src="./assets/logo.svg" alt="hCaptcha logo" title="hCaptcha logo" />  
 
 **0** dependencies. **<1kb** gzipped. Integrates well with Vue.JS, React, Preact, Angular, etc.
 
@@ -267,7 +267,7 @@ If you would like to programmatically call the `render()` method, you can set `a
 | `size`                | String (normal, compact, invisible) | `normal` | This specifies the "size" of the checkbox. hCaptcha allows you to decide how big the component will appear on render. Defaults to normal. |
 | `theme`               | String (light, dark)                | `light`  | hCaptcha supports both a light and dark theme. If no theme is set, the API will default to light.                                         |
 | `tabindex`            | Integer                             | `0`      | Set the tabindex of the widget and popup. When appropriate, this can make navigation of your site more intuitive.                         |
-| `hl`                  | String (ISO 639-2 code)             | -        | hCaptcha auto-detects language via the user's browser. This overrides that to set a default UI language.                                  |
+| `hl`                  | String (ISO 639-1 code)             | -        | hCaptcha auto-detects language via the user's browser. This overrides that to set a default UI language.                                  |
 | `challenge-container` | String                              | -        | A custom element ID to render the hCaptcha challenge.                                                                                     |
 | `rqdata`              | String                              | -        | See Enterprise docs.                                                                                                                      |
 
@@ -278,7 +278,7 @@ These attributes are optional.
 | Attribute         | Values/Type                | Default | Description                                                                                                        |
 |-------------------|----------------------------|---------|--------------------------------------------------------------------------------------------------------------------|
 | `recaptchacompat` | Boolean                    | `true`  | Disable drop-in replacement for reCAPTCHA with `false` to prevent hCaptcha from injecting into window.grecaptcha.  |
-| `hl`              | String (ISO 639-2 code)    | -       | hCaptcha auto-detects language via the user's browser. This overrides that to set a default UI language.           |
+| `hl`              | String (ISO 639-1 code)    | -       | hCaptcha auto-detects language via the user's browser. This overrides that to set a default UI language.           |
 | `jsapi`           | String                     | -       | See Enterprise docs.                                                                                               |
 | `endpoint`        | String                     | -       | See Enterprise docs.                                                                                               |
 | `reportapi`       | String                     | -       | See Enterprise docs.                                                                                               |

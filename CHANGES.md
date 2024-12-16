@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.1.1
+
+- docs: fix 'hl' typo ISO 639-1
+
 # 1.1.0-alpha2
 
 - feat: enable typescript strict mode
