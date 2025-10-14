@@ -112,6 +112,22 @@ describe('hCaptcha Vanilla Web Component', () => {
         hCaptchaEl2.addEventListener('loaded', () => done());
     });
 
+    it('should automatically render and execute', (done) => {
+        document.body.innerHTML = `
+            <h-captcha id="signupCaptcha2"
+                       site-key="10000000-ffff-ffff-ffff-000000000001"></h-captcha>`;
+        const hCaptchaEl2 = document.getElementById('signupCaptcha2');
+        hCaptchaEl2.addEventListener('loaded', () => {
+            try {
+                hCaptchaEl2.execute();
+                expect(window.hcaptcha.execute).toHaveBeenCalledWith(mockCaptchaId);
+                done();
+            } catch (err) {
+                done(err);
+            }
+        });
+    });
+
     it('should use dynamic jsapi attribute', async () => {
         const hcaptcha = window.hcaptcha;
         delete window.hcaptcha;

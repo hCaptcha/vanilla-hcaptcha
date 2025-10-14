@@ -161,8 +161,12 @@ export class VanillaHCaptchaWebComponent extends HTMLElement {
     }
 
     private onApiLoaded(): void {
+        this.onApiLoadedHandler();
+        // Emit 'loaded' only after potential render.
         this.$emit('loaded');
+    }
 
+    private onApiLoadedHandler(): void {
         const autoRender = this.getAttr('auto-render') !== 'false';
 
         if (!autoRender) {

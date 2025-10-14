@@ -2,15 +2,15 @@
 A Vanilla Web Component wrapper for [hCaptcha](https://docs.hcaptcha.com/).
 It allows for easy integration with hCaptcha in many modern web frameworks.
 
-<img width="300px" src="./assets/logo.svg" alt="hCaptcha logo" title="hCaptcha logo" />  
+<img width="300px" src="./assets/logo.svg" alt="hCaptcha logo" title="hCaptcha logo" />
 
 **0** dependencies. **<1kb** gzipped. Integrates well with Vue.JS, React, Preact, Angular, etc.
 
-[Install](#install) 
-| [Browser Compatibility](#browser-compatibility) 
-| [Usage](#usage) 
-| [Attributes](#attributes) 
-| [Events](#events) 
+[Install](#install)
+| [Browser Compatibility](#browser-compatibility)
+| [Usage](#usage)
+| [Attributes](#attributes)
+| [Events](#events)
 | [Methods](#methods)
 
 ## Install
@@ -68,7 +68,7 @@ mainstream web frameworks such as: React, Preact, Vue.js, Angular, Stencil.js, e
 1. Import once in application (`main.js`). Ignore the custom element.
     ```js
     import "@hcaptcha/vanilla-hcaptcha";
-    
+
     Vue.config.ignoredElements = [
       "h-captcha"
     ];
@@ -138,7 +138,6 @@ mainstream web frameworks such as: React, Preact, Vue.js, Angular, Stencil.js, e
    ```html
     <h-captcha [attr.site-key]="siteKey"
                (verified)="onCaptchaVerified($event)"></h-captcha>
-    
    ```
 
 ### Angular.JS
@@ -205,14 +204,14 @@ mainstream web frameworks such as: React, Preact, Vue.js, Angular, Stencil.js, e
 
       useEffect(() => {
         import('@hcaptcha/vanilla-hcaptcha');
-   
+
         if (captchaRef.current) {
           captchaRef.current.addEventListener('verified', (e: Event) => {
             console.log('hCaptcha event: verified', { token: e.token });
           });
         }
       }, []);
-   
+
       return (
       <main>
         <h-captcha
@@ -231,7 +230,6 @@ mainstream web frameworks such as: React, Preact, Vue.js, Angular, Stencil.js, e
 > Example: display normal size hCaptcha accessible by keyboard (see [tabindex](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex)).
 
 ```html
-
 <script src="https://cdn.jsdelivr.net/npm/@hcaptcha/vanilla-hcaptcha"></script>
 
 <h-captcha id="signupCaptcha"
