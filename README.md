@@ -340,6 +340,7 @@ Depending on the use case, you can or not listen to the following events.
 
 | Event                | Params         | Description                                                               |
 |----------------------|----------------|---------------------------------------------------------------------------|
+| `loaded`             | -              | When the hCaptcha loaded and is ready for challenge execution. Usually used in combination with size=invisible or when manual .execute() is required. |
 | `error`              | `err`          | When an error occurs. Component will reset immediately after an error.    |
 | `verified`           | `token, eKey`  | When challenge is completed. The `token` and the `eKey` are passed along. |
 | `expired`            | -              | When the current token expires.                                           |

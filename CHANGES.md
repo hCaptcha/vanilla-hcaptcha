@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.1.4
+
+- docs: 'loaded' event
+
 # 1.1.3
 
 - docs: add "form integration" section
