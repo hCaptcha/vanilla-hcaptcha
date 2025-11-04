@@ -9,6 +9,7 @@ It allows for easy integration with hCaptcha in many modern web frameworks.
 [Install](#install)
 | [Browser Compatibility](#browser-compatibility)
 | [Usage](#usage)
+| [Form Integration](#form-integration)
 | [Attributes](#attributes)
 | [Events](#events)
 | [Methods](#methods)
@@ -246,6 +247,54 @@ mainstream web frameworks such as: React, Preact, Vue.js, Angular, Stencil.js, e
     signupCaptcha.addEventListener('error', (e) => {
         console.log('error event', {error: e.error});
     });
+</script>
+```
+
+## Form Integration
+
+When using hCaptcha within forms, **you must manually control the verification flow** to ensure proper security. The hCaptcha component should be triggered on form submission, and the actual form submission should only happen after successful verification.
+
+### Required Flow
+
+1. **Prevent default form submission** - Use `preventDefault()` to stop immediate form submission
+2. **Execute hCaptcha verification** - Call `.execute()` method to trigger the challenge
+3. **Handle verification result** - Submit the form only when the `verified` event fires
+
+### Minimalist Example
+
+```html
+<form id="myForm">
+    <input type="email" name="email" placeholder="Your email" required>
+    <button type="submit">Submit</button>
+
+    <!-- hCaptcha component (can be invisible) -->
+    <h-captcha id="hcaptchaEl"
+               site-key="your-site-key"
+               size="invisible"></h-captcha>
+</form>
+
+<script>
+const form = document.getElementById('myForm');
+const hcaptchaEl = document.getElementById('hcaptchaEl');
+
+// 1. Intercept form submission
+form.addEventListener('submit', (e) => {
+    e.preventDefault(); // Stop default submission
+    hcaptchaEl.execute(); // Trigger hCaptcha verification
+});
+
+// 2. Handle successful verification
+hcaptchaEl.addEventListener('verified', (e) => {
+    console.log("hCaptcha successfull verification", { token: e.token })
+    // Now submit the form
+    form.submit();
+});
+
+// 3. Handle errors
+hcaptchaEl.addEventListener('error', (e) => {
+    console.error('hCaptcha error:', e.error);
+    // Show user-friendly error message
+});
 </script>
 ```
 

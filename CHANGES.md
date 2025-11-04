@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.1.3
+
+- docs: add "form integration" section
+
 # 1.1.2
 
 - fix: 'loaded' event race condition when calling 'execute'
