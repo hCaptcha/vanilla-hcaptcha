@@ -8,7 +8,7 @@
     "test": "echo Examples have no tests."
   },
   "dependencies": {
-    "@hcaptcha/vanilla-hcaptcha": "link:../../packages/vanilla-hcaptcha",
+    "@hcaptcha/vanilla-hcaptcha": "workspace:*",
     "serve": "^13.0.2"
   }
 }
