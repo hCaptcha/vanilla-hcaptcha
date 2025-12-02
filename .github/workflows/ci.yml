@@ -8,6 +8,9 @@ on:
     branches:
       - master
 
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -43,7 +46,7 @@ jobs:
       - run: cp README.md CHANGES.md packages/vanilla-hcaptcha
 
       - name: 'Publish'
-        if: contains('refs/heads/master', github.ref)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: pnpm --filter=@hcaptcha/vanilla-hcaptcha --no-git-checks publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
