@@ -13,6 +13,7 @@ It allows for easy integration with hCaptcha in many modern web frameworks.
 | [Attributes](#attributes)
 | [Events](#events)
 | [Methods](#methods)
+| [Deploy](#deploy)
 
 ## Install
 
@@ -369,3 +370,21 @@ The following methods allow for programmatic control, necessary only in case of 
 
 * `pnpm test`
   > Runs unit tests.
+
+## Deploy
+
+Publishing to npm is handled automatically via GitHub Actions using [OIDC Trusted Publishing](https://docs.npmjs.com/trusted-publishers) (no npm token required).
+
+### Release Flow
+
+1. Bump the version in `packages/vanilla-hcaptcha/package.json`.
+2. Merge changes to `master`.
+3. Create a [GitHub Release](https://github.com/hCaptcha/vanilla-hcaptcha/releases/new) with a tag matching the version (e.g. `v1.2.0`).
+4. The `publish.yml` workflow will automatically run the full CI (build, typecheck, test) and publish to npm.
+
+### Workflows
+
+| Workflow | Trigger | Purpose |
+|----------|---------|---------|
+| `ci.yml` | Push/PR to `master` | Build, typecheck, and test |
+| `publish.yml` | GitHub Release published | Full CI + publish to npm via OIDC |
