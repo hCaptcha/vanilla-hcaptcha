@@ -6,7 +6,7 @@
     "name": "hCaptcha <support@hcaptcha.com>",
     "url": "https://www.hcaptcha.com"
   },
-  "packageManager": "pnpm@8.8.0",
+  "packageManager": "pnpm@12.15.0",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -14,6 +14,6 @@
     "typecheck": "pnpm -r --stream run typecheck",
     "dev": "pnpm -r --stream run dev",
     "build": "pnpm -r --stream run build",
-    "test": "pnpm --r -stream run test"
+    "test": "pnpm -r --stream run test"
   }
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+# 1.1.5
+
+- chore: update vulnerable example and build dependencies, including Next.js and Angular
+- chore: pin third-party dependency versions and security overrides
+- chore: replace deprecated Rollup terser plugin and fix recursive test command
+
 # 1.1.4
 
 - docs: 'loaded' event
