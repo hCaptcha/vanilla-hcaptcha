@@ -14,6 +14,6 @@
     "typecheck": "pnpm -r --stream run typecheck",
     "dev": "pnpm -r --stream run dev",
     "build": "pnpm -r --stream run build",
-    "test": "pnpm --r -stream run test"
+    "test": "pnpm -r --stream run test"
   }
 }

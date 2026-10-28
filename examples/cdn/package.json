@@ -9,6 +9,6 @@
   },
   "dependencies": {
     "@hcaptcha/vanilla-hcaptcha": "workspace:*",
-    "serve": "^13.0.2"
+    "serve": "14.2.6"
   }
 }
