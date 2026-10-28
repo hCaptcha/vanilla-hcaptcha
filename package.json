@@ -6,7 +6,7 @@
     "name": "hCaptcha <support@hcaptcha.com>",
     "url": "https://www.hcaptcha.com"
   },
-  "packageManager": "pnpm@8.8.0",
+  "packageManager": "pnpm@12.15.0",
   "private": true,
   "license": "MIT",
   "scripts": {
