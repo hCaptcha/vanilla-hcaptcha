@@ -1,3 +1,5 @@
+import { describe, it, expect, beforeEach, afterEach, mock } from 'bun:test';
+
 import '../../dist/index.min.js';
 
 const mockCaptchaId = 42069;
@@ -9,17 +11,17 @@ describe('hCaptcha Vanilla Web Component', () => {
 
     beforeEach(async () => {
         window.hcaptcha = {
-            getResponse: jest.fn().mockReturnValue(mockToken),
-            getRespKey: jest.fn().mockReturnValue(mockEkey),
-            render: jest.fn().mockReturnValue(mockCaptchaId),
-            execute: jest.fn(),
-            reset: jest.fn(),
-            remove: jest.fn(),
-            setData: jest.fn(),
+            getResponse: mock(() => mockToken),
+            getRespKey: mock(() => mockEkey),
+            render: mock(() => mockCaptchaId),
+            execute: mock(),
+            reset: mock(),
+            remove: mock(),
+            setData: mock(),
         };
 
-        console.warn = jest.fn();
-        console.error = jest.fn();
+        console.warn = mock();
+        console.error = mock();
 
         document.body.innerHTML = `
             <h-captcha id="signupCaptcha"
@@ -35,7 +37,7 @@ describe('hCaptcha Vanilla Web Component', () => {
     });
 
     afterEach(() => {
-        jest.resetAllMocks();
+        mock.restore();
     });
 
     it('should emit "loaded" event', (done) => {
@@ -135,15 +137,18 @@ describe('hCaptcha Vanilla Web Component', () => {
 
         const scriptElement = document.createElement("script");
 
-        jest.spyOn(document, "createElement").mockImplementation((tagName) => {
+        const originalCreateElement = document.createElement.bind(document);
+        mock.module = undefined; // not needed, just using spyOn pattern
+        const createElementMock = mock((tagName) => {
             if (tagName === 'script') {
                 // Simulate js api onload.
                 window._hCaptchaOnLoad();
                 window.hcaptcha = hcaptcha;
                 return scriptElement;
             }
-            throw new Error("Unexpected tag name to be mocked.");
+            return originalCreateElement(tagName);
         });
+        document.createElement = createElementMock;
 
         document.body.innerHTML = `<h-captcha id="signupCaptcha2" site-key="10000000-ffff-ffff-ffff-000000000001"></h-captcha>`;
 

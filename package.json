@@ -6,14 +6,17 @@
     "name": "hCaptcha <support@hcaptcha.com>",
     "url": "https://www.hcaptcha.com"
   },
-  "packageManager": "pnpm@8.8.0",
   "private": true,
   "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
   "scripts": {
-    "setup": "pnpm install --frozen-lockfile --prefer-offline",
-    "typecheck": "pnpm -r --stream run typecheck",
-    "dev": "pnpm -r --stream run dev",
-    "build": "pnpm -r --stream run build",
-    "test": "pnpm --r -stream run test"
+    "setup": "bun install --frozen-lockfile",
+    "typecheck": "bun run --filter='*' typecheck",
+    "dev": "bun run --filter='*' dev",
+    "build": "bun run --filter='*' build",
+    "test": "bun run --filter='*' test"
   }
 }
